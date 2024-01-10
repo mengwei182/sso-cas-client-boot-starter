@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>sso-cas-client-boot-start</artifactId>
+    <artifactId>sso-cas-client-boot-starter</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
