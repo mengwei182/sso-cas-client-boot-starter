@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Component
 public class AntPathMatcherStrategy implements UrlPatternMatcherStrategy {
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
     private String pattern;

@@ -3,7 +3,6 @@ package org.example.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@Component
 @ConfigurationProperties(prefix = "sso.cas.server")
 public class CasProperties {
     /**
