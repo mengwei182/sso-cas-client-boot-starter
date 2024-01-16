@@ -197,6 +197,11 @@ public class TicketValidationFilter extends AbstractCasFilter {
                 onSuccessfulValidation(request, response, assertion);
 
                 if (this.redirectAfterValidation) {
+                    // 前端主动携带了跳转地址则优先跳转到该地址
+                    String redirectUrl1 = request.getParameter("redirectUrl");
+                    if (!StringUtils.isEmpty(redirectUrl1)) {
+                        this.redirectUrl = redirectUrl1;
+                    }
                     logger.debug("Redirecting after successful ticket validation.");
                     if (StringUtils.isNotEmpty(this.redirectUrl)) {
                         response.sendRedirect(this.redirectUrl);

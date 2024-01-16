@@ -1,5 +1,6 @@
 package org.example.filter;
 
+import com.google.gson.Gson;
 import org.jasig.cas.client.Protocol;
 import org.jasig.cas.client.authentication.*;
 import org.jasig.cas.client.configuration.ConfigurationKeys;
@@ -17,32 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AuthenticationFilter extends AbstractCasFilter {
-    /**
-     * The URL to the CAS Server login.
-     */
-    private String casServerLoginUrl;
-
-    /**
-     * Whether to send the renew request or not.
-     */
-    private boolean renew = false;
-
-    /**
-     * Whether to send the gateway request or not.
-     */
-    private boolean gateway = false;
-
-    /**
-     * The method used by the CAS server to send the user back to the application.
-     */
-    private String method;
-
-    private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
-
-    private AuthenticationRedirectStrategy authenticationRedirectStrategy = new DefaultAuthenticationRedirectStrategy();
-
-    private UrlPatternMatcherStrategy ignoreUrlPatternMatcherStrategyClass = null;
-
     private static final Map<String, Class<? extends UrlPatternMatcherStrategy>> PATTERN_MATCHER_TYPES = new HashMap<String, Class<? extends UrlPatternMatcherStrategy>>();
 
     static {
@@ -51,6 +26,26 @@ public class AuthenticationFilter extends AbstractCasFilter {
         PATTERN_MATCHER_TYPES.put("FULL_REGEX", EntireRegionRegexUrlPatternMatcherStrategy.class);
         PATTERN_MATCHER_TYPES.put("EXACT", ExactUrlPatternMatcherStrategy.class);
     }
+
+    /**
+     * The URL to the CAS Server login.
+     */
+    private String casServerLoginUrl;
+    /**
+     * Whether to send the renew request or not.
+     */
+    private boolean renew = false;
+    /**
+     * Whether to send the gateway request or not.
+     */
+    private boolean gateway = false;
+    /**
+     * The method used by the CAS server to send the user back to the application.
+     */
+    private String method;
+    private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
+    private AuthenticationRedirectStrategy authenticationRedirectStrategy = new DefaultAuthenticationRedirectStrategy();
+    private UrlPatternMatcherStrategy ignoreUrlPatternMatcherStrategyClass = null;
 
     public AuthenticationFilter() {
         this(Protocol.CAS2);
@@ -164,7 +159,11 @@ public class AuthenticationFilter extends AbstractCasFilter {
         if (isAjax(request)) {
             logger.info("this request is ajax:{}", request.getRequestURL().toString());
             response.setStatus(401);
-            response.getWriter().write(urlToRedirectTo);
+            Map<String, Object> responseObject = new HashMap<>();
+            responseObject.put("data", urlToRedirectTo);
+            responseObject.put("message", "");
+            responseObject.put("code", 401);
+            response.getWriter().write(new Gson().toJson(responseObject));
         } else {
             this.authenticationRedirectStrategy.redirect(request, response, urlToRedirectTo);
         }

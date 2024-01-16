@@ -10,21 +10,23 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>8</java.version>
-        <maven.compiler>${java.version}</maven.compiler>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.boot.starter.version>2.7.18</spring.boot.starter.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>2.7.18</version>
+            <version>${spring.boot.starter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>2.7.18</version>
+            <version>${spring.boot.starter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -52,6 +54,11 @@
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-cas</artifactId>
             <version>4.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
         </dependency>
     </dependencies>
 
