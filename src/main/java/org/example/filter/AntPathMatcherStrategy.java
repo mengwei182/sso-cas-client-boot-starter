@@ -1,7 +1,6 @@
 package org.example.filter;
 
 import org.jasig.cas.client.authentication.UrlPatternMatcherStrategy;
-import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
 import java.net.URI;
